@@ -34,8 +34,7 @@ document.getElementById("year").textContent = new Date().getFullYear();
    بنضيف لمعان + 3 طبقات ضباب زيادة + 80 نقطة منورة (أغلبها بيضا)، لكل واحدة مكان وحجم وسرعة عشوائية.
    CSS هو اللي بيحركهم (drift و float-up). لو المستخدم طالب حركة أقل مش بنعمل حاجة. */
 const heroBg = document.getElementById("heroBg");
-const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-if (heroBg && !reduceMotion) {
+if (heroBg) {
   ["sheen sheen-1", "sheen sheen-2", "floor"].forEach((cls) => {
     const el = document.createElement("span");
     el.className = cls;
@@ -45,6 +44,16 @@ if (heroBg && !reduceMotion) {
     const fog = document.createElement("span");
     fog.className = "fog fog-" + n;
     heroBg.appendChild(fog);
+  }
+  for (let i = 0; i < 12; i++) {
+    const smoke = document.createElement("span");
+    smoke.className = "smoke";
+    smoke.style.setProperty("--x", 4 + Math.random() * 92 + "%");
+    smoke.style.setProperty("--w", 260 + Math.random() * 260 + "px");
+    smoke.style.setProperty("--d", 9 + Math.random() * 7 + "s");
+    smoke.style.setProperty("--dl", -Math.random() * 14 + "s");
+    smoke.style.setProperty("--dr", (Math.random() - 0.5) * 240 + "px");
+    heroBg.appendChild(smoke);
   }
   for (let i = 0; i < 80; i++) {
     const dot = document.createElement("i");

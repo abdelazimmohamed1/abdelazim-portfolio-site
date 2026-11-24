@@ -789,7 +789,7 @@ footer {
 
 /* ==========================================================
    WOW LAYER: حركات الهيرو وكروت المشاريع
-   كله CSS عادي. أي حاجة متحركة بتقف لو الجهاز مفعّل reduce motion
+   كله CSS عادي. والحركة شغالة دايما
    ========================================================== */
 
 /* ---------- 1) خلفية الهيرو (حركة واضحة) ---------- */
@@ -905,6 +905,27 @@ footer {
   to   { transform: translate(var(--dx), var(--dy)) scale(1.35); }
 }
 
+/* دخان طالع لفوق: فقاقيع ضباب ناعمة بتطلع من تحت وتكبر وتختفي (من script.js) */
+.smoke {
+  position: absolute;
+  bottom: -30%;
+  left: var(--x);
+  width: var(--w);
+  height: var(--w);
+  margin-left: calc(var(--w) / -2);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(235, 240, 235, 0.3), rgba(235, 240, 235, 0.1) 55%, transparent);
+  filter: blur(22px);
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: smoke-rise var(--d) ease-out var(--dl) infinite;
+}
+@keyframes smoke-rise {
+  0%   { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translate(var(--dr), -120vh) scale(1.9); opacity: 0; }
+}
+
 /* الجزيئات (من script.js): أكتر، أكبر، منورة، وبتتمايل وهي طالعة */
 .hero-bg i {
   position: absolute;
@@ -996,15 +1017,7 @@ footer {
 }
 
 /* ---------- 5) لو المستخدم طالب حركة أقل: نوقف كل الحركات ---------- */
-@media (prefers-reduced-motion: reduce) {
-  .beam, .fog, .sheen, .floor, .hero-bg i, .hero-bg::after,
-  .hero-grid > div > *, .portrait {
-    animation: none !important;
-  }
-  .hero-bg i, .sheen { display: none; }
-  .visual img, .visual:after { transition: none !important; }
-  html { scroll-behavior: auto; }
-}
+/* الحركة شغالة دايما (Windows بيطفي الأنيميشن عند ناس كتير فكانت بتتوقف) */
 
 /* ==========================================================
    كروت المشاريع بشكل مضغوط (Compact)
